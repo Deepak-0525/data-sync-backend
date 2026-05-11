@@ -5,7 +5,11 @@ require("dotenv").config();
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "ngrok-skip-browser-warning"]
+}));
 app.use(express.json());
 
 const SHOP = process.env.SHOPIFY_STORE;
@@ -202,4 +206,4 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}`);
-});2
+});
