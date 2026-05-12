@@ -79,7 +79,6 @@ app.post("/api/cart/sync", async (req, res) => {
 
 app.get("/api/cart/:customerId", async (req, res) => {
   try {
-
     const customerId = req.params.customerId;
 
     const response = await axios.post(
@@ -98,17 +97,15 @@ app.get("/api/cart/:customerId", async (req, res) => {
       { headers }
     );
 
-    const value =
-      response.data.data.customer.metafield?.value || "[]";
+    const value = response.data?.data?.customer?.metafield?.value || "[]";
 
     res.json(JSON.parse(value));
 
   } catch (error) {
-    console.log(error.response?.data || error.message);
+    console.log("GET CART ERROR:", error.response?.data || error.message);
 
-    res.status(500).json({
-      error: error.response?.data || error.message,
-    });
+    // Always return array to frontend
+    res.json([]);
   }
 });
 
@@ -168,7 +165,6 @@ app.post("/api/wishlist/sync", async (req, res) => {
 
 app.get("/api/wishlist/:customerId", async (req, res) => {
   try {
-
     const customerId = req.params.customerId;
 
     const response = await axios.post(
@@ -187,17 +183,15 @@ app.get("/api/wishlist/:customerId", async (req, res) => {
       { headers }
     );
 
-    const value =
-      response.data.data.customer.metafield?.value || "[]";
+    const value = response.data?.data?.customer?.metafield?.value || "[]";
 
     res.json(JSON.parse(value));
 
   } catch (error) {
-    console.log(error.response?.data || error.message);
+    console.log("GET WISHLIST ERROR:", error.response?.data || error.message);
 
-    res.status(500).json({
-      error: error.response?.data || error.message,
-    });
+    // Always return array to frontend
+    res.json([]);
   }
 });
 
